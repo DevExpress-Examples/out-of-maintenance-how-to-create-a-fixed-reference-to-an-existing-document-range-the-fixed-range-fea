@@ -39,25 +39,25 @@ Namespace WindowsFormsApplication1
 	Public Module FixedRangeExtension
         Sub New()
         End Sub
-        <System.Runtime.CompilerServices.Extension> _
-        Public Function GetFixedRange(ByVal range As DocumentRange) As FixedRange
-            Return New FixedRange(range)
+        <System.Runtime.CompilerServices.Extension>
+        Public Function GetFixedRange(ByVal range As DocumentRange) As CustomFixedRange
+            Return New CustomFixedRange(range)
         End Function
-        <System.Runtime.CompilerServices.Extension> _
-        Public Function BeginUpdateCharacters(ByVal document As Document, ByVal range As FixedRange) As CharacterProperties
+        <System.Runtime.CompilerServices.Extension>
+        Public Function BeginUpdateCharacters(ByVal document As Document, ByVal range As CustomFixedRange) As CharacterProperties
             Return document.BeginUpdateCharacters(range.CreateRange(document))
         End Function
-	End Module
-	Public Class FixedRange
-		Private start As Integer
-		Private length As Integer
-		Public Sub New(ByVal range As DocumentRange)
-			Me.start = range.Start.ToInt()
-			Me.length = range.Length
-		End Sub
-		Public Function CreateRange(ByVal document As Document) As DocumentRange
-			Return document.CreateRange(start, length)
-		End Function
-	End Class
+    End Module
+    Public Class CustomFixedRange
+        Private start As Integer
+        Private length As Integer
+        Public Sub New(ByVal range As DocumentRange)
+            Me.start = range.Start.ToInt()
+            Me.length = range.Length
+        End Sub
+        Public Function CreateRange(ByVal document As Document) As DocumentRange
+            Return document.CreateRange(start, length)
+        End Function
+    End Class
 #End Region ' #FixedRangeExtension
 End Namespace

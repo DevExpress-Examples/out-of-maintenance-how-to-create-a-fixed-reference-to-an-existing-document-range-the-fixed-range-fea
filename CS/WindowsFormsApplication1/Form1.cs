@@ -4,13 +4,17 @@ using System.Drawing;
 using DevExpress.XtraRichEdit.API.Native;
 #endregion #usings
 
-namespace WindowsFormsApplication1 {
-    public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm {
-        public Form1() {
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : DevExpress.XtraBars.Ribbon.RibbonForm
+    {
+        public Form1()
+        {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
+        private void Form1_Load(object sender, EventArgs e)
+        {
             richEditControl1.CreateNewDocument();
         }
 
@@ -34,20 +38,25 @@ namespace WindowsFormsApplication1 {
             #endregion #FixedRangeUse
         }
     }
-#region #FixedRangeExtension
-    public static class FixedRangeExtension {
-        public static FixedRange GetFixedRange(this DocumentRange range) {
-            return new FixedRange(range);
+    #region #FixedRangeExtension
+    public static class FixedRangeExtension
+    {
+        public static CustomFixedRange GetFixedRange(this DocumentRange range)
+        {
+            return new CustomFixedRange(range);
         }
         public static CharacterProperties BeginUpdateCharacters
-            (this Document document, FixedRange range) {
+            (this Document document, CustomFixedRange range)
+        {
             return document.BeginUpdateCharacters(range.CreateRange(document));
         }
     }
-    public class FixedRange {
+    public class CustomFixedRange
+    {
         int start;
         int length;
-        public FixedRange(DocumentRange range) {
+        public CustomFixedRange(DocumentRange range)
+        {
             this.start = range.Start.ToInt();
             this.length = range.Length;
         }
@@ -56,5 +65,5 @@ namespace WindowsFormsApplication1 {
             return document.CreateRange(start, length);
         }
     }
-#endregion #FixedRangeExtension
+    #endregion #FixedRangeExtension
 }
